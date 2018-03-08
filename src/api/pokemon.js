@@ -1,25 +1,23 @@
-import $ from "jquery";
+import { ajax } from "jquery";
 
-const baseUrl = "https://express-pokemons.herokuapp.com/pokemons";
+const baseUrl = "http://localhost:3001/pokemons";
 /* eslint-disable */
 export default class PokemonApi {
     getAll() {
         return new Promise((resolve, reject) => {
-            $.ajax({
+            ajax({
                 method: "GET",
                 url: baseUrl
             }).done( response => {
-                console.warn("COUCOU JQUERY DONE", response);
                 resolve(response);
             }).fail( response => {
-                console.warn("COUCOU JQUERY FAIL", response);
                 reject({error: response})
             });
         });
     }
     get(id = 1) {
         return new Promise((resolve, reject) => {
-            $.ajax({
+            ajax({
                 method: "GET",
                 url: baseUrl + `/${id}`
             }).done( response => {
@@ -31,7 +29,7 @@ export default class PokemonApi {
     }
     create(data = {name: "blabla", osef: "ahok"}) {
         return new Promise((resolve, reject) => {
-            $.ajax({
+            ajax({
                 method: "POST",
                 url: baseUrl + "/create",
                 data
@@ -44,7 +42,7 @@ export default class PokemonApi {
     }
     update(id = 1, data = {name: "blabla", osef: "ahok"}) {
         return new Promise((resolve, reject) => {
-            $.ajax({
+            ajax({
                 method: "PUT",
                 url: baseUrl + "/update/" + id,
                 data
@@ -57,7 +55,7 @@ export default class PokemonApi {
     }
     delete(id = 1, callback) {
         return new Promise((resolve, reject) => {
-            $.ajax({
+            ajax({
                 method: "DELETE",
                 url: baseUrl + "/delete/" + id
             }).done( response => {
@@ -69,7 +67,7 @@ export default class PokemonApi {
     }
     getMarked() {
         return new Promise((resolve, reject) => {
-            $.ajax({
+            ajax({
                 method: "GET",
                 url: baseUrl + "/marked"
             }).done( response => {
@@ -81,7 +79,7 @@ export default class PokemonApi {
     }
     signal(id_pokemon, lat, lng) {
         return new Promise((resolve, reject) => {
-            $.ajax({
+            ajax({
                 method: "POST",
                 url: baseUrl + "/signal",
                 data: {
@@ -97,7 +95,7 @@ export default class PokemonApi {
         });
     }
     marked(callback){
-      $.ajax({
+      ajax({
           method: "GET",
           url: baseUrl + "/marked"
       }).done( response => {

@@ -32,13 +32,15 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
         defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
         onClick={props.onMapClick}
     >
-        {props.markers.map((marker, key) => (
-            <Marker
-                {...marker}
-                key
-                onRightClick={props.onMarkerRightClick}
-            />
-        ))}
+        {
+            props.markers ? props.markers.map((marker, key) => (
+                <Marker
+                    {...marker}
+                    key
+                    onRightClick={props.onMarkerRightClick}
+                />
+            )) : []
+        }
     </GoogleMap>
 ));
 
@@ -150,7 +152,7 @@ class MapContainer extends React.PureComponent {
                     message="Signalement envoyé"
                     action="ok"
                     autoHideDuration={4000}
-                    onActionTouchTap={this.props.setNoticedAddingPokeLocationMsgTrue}
+                    onTouchTap={this.props.setNoticedAddingPokeLocationMsgTrue}
                     onRequestClose={this.props.setNoticedAddingPokeLocationMsgTrue}
                 />
                 <Snackbar
@@ -158,7 +160,7 @@ class MapContainer extends React.PureComponent {
                     message="Signalement enregistré !"
                     action="ok"
                     autoHideDuration={4000}
-                    onActionTouchTap={this.props.setNoticedAddEDPokeLocationMsgTrue}
+                    onTouchTap={this.props.setNoticedAddEDPokeLocationMsgTrue}
                     onRequestClose={this.props.setNoticedAddEDPokeLocationMsgTrue}
                 />
                 <Snackbar
@@ -166,7 +168,7 @@ class MapContainer extends React.PureComponent {
                     message="Le signalement a échoué !"
                     action="ok"
                     autoHideDuration={4000}
-                    onActionTouchTap={this.props.setNoticedFailedAddEDPokeLocationMsgTrue}
+                    onTouchTap={this.props.setNoticedFailedAddEDPokeLocationMsgTrue}
                     onRequestClose={this.props.setNoticedFailedAddEDPokeLocationMsgTrue}
                 />
             </section>
@@ -177,9 +179,9 @@ class MapContainer extends React.PureComponent {
         if (!getGoogle()) {
             return null;
         }
-        return tools.isArray(this.props.pokemons.marked) ?
-            this.renderMap() :
-            this.renderSpinner();
+        // return tools.isArray(this.props.pokemons.marked) ?
+        return this.renderMap();
+        // this.renderSpinner();
     }
 }
 MapContainer.propTypes = {
@@ -191,11 +193,10 @@ MapContainer.propTypes = {
     setNoticedAddingPokeLocationMsgFalse: T.func.isRequired,
     setNoticedFailedAddEDPokeLocationMsgTrue: T.func.isRequired,
     setNoticedAddEDPokeLocationMsgTrue: T.func.isRequired,
-    noticedFailedAddedSignalment: T.func.isRequired,
     pokemons: T.shape({
         isFetching: T.bool.isRequired,
         addingPokemonMarker: T.bool.isRequired,
-        marked: T.array.isRequired,
+        marked: T.array,
     }).isRequired,
     mapContainer: T.shape({
         noticedAddingSignalment: T.bool.isRequired,
@@ -214,11 +215,11 @@ MapContainer.propTypes = {
     mapLegend: T.shape({
         placingPokemon: T.bool.isRequired,
         selectedPokemon: T.shape({
-            image: T.string.isRequired,
+            image: T.string,
         }),
     }).isRequired,
     mapWrap: T.shape({
-        addedMarker: T.any.isRequired,
+        addedMarker: T.any,
     }).isRequired,
 };
 export default MapContainer;

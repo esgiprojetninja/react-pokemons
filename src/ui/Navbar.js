@@ -74,6 +74,7 @@ export default class Navbar extends React.PureComponent {
                 className="animate slow fadeInHeaderIcon"
                 onTouchTap={
                     () => {
+                        if (!this.props.pokemons.all) return;
                         this.props.getTableView();
                         this.props.resetSearchedPokemons();
                         this.props.resetSearchedParams();
@@ -175,6 +176,9 @@ Navbar.propTypes = {
     toggleSearch: T.func.isRequired,
     navbar: T.shape({
         show: T.bool.isRequired,
+    }).isRequired,
+    pokemons: T.shape({
+        all: T.array,
     }).isRequired,
     theme: T.shape({
         current: T.shape({

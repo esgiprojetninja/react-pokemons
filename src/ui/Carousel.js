@@ -113,15 +113,9 @@ class Carousel extends React.PureComponent {
 Carousel.propTypes = {
     setSelectedPokemonForDetails: T.func.isRequired,
     openDetails: T.func.isRequired,
-    tickMarkers: T.func.isRequired,
-    validateAddedMarker: T.func.isRequired,
-    setNoticedAddingPokeLocationMsgTrue: T.func.isRequired,
-    setNoticedAddingPokeLocationMsgFalse: T.func.isRequired,
-    setNoticedFailedAddEDPokeLocationMsgTrue: T.func.isRequired,
-    setNoticedFailedAddEDPokeLocationMsgFalse: T.func.isRequired,
     pokemons: T.shape({
         isFetching: T.bool.isRequired,
-        all: T.array.isRequired,
+        all: T.array,
     }).isRequired,
     theme: T.shape({}).isRequired,
     mapLegend: T.shape({

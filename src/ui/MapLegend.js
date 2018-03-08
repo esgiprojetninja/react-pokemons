@@ -166,16 +166,16 @@ MapLegend.propTypes = {
         displayForm: T.bool.isRequired,
         placingPokemon: T.bool.isRequired,
         selectedPokemon: T.shape({
-            id_national: T.any.isRequired,
+            id_national: T.any,
         }),
     }).isRequired,
     mapWrap: T.shape({
-        addedMarker: T.any.isRequired,
+        addedMarker: T.any,
     }).isRequired,
     pokemons: T.shape({
         isFetching: T.bool.isRequired,
         addingPokemonMarker: T.bool.isRequired,
-        marked: T.array.isRequired,
-        all: T.array.isRequired,
+        marked: T.array,
+        all: T.array,
     }).isRequired,
 };

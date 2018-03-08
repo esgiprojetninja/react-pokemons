@@ -6,8 +6,8 @@ import { isArray } from "../utils/verifTools";
 const DEFAULT_MARKER_ANIMATION = 2;
 
 const initialSate = {
-    all: false,
-    marked: false,
+    all: null,
+    marked: null,
     isFetching: false,
     addingPokemonMarker: false,
     requestFailMsg: false,
@@ -28,12 +28,13 @@ const pokemons = (state = initialSate, action) => {
             requestFailMsg: action.error,
         };
     case types.RECEIVED_ALL_POKEMONS:
-        console.log("coucou pokemons", action);
         return {
             ...state,
             isFetching: false,
             all: action.pokemons
                 .map(pokemon => ({
+                    id: pokemon._id, // eslint-disable-line
+                    type: [pokemon.type1, pokemon.type2],
                     ...pokemon,
                     evolutions: action.pokemons
                         .find(poke => poke.id_parent === pokemon.id_national) ?

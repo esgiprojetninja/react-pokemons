@@ -30,7 +30,7 @@ class App extends React.PureComponent {
 App.propTypes = {
     beforeReady: T.func.isRequired,
     onReady: T.func.isRequired,
-    muiTheme: T.string.isRequired,
+    muiTheme: T.shape({}).isRequired,
 };
 
 

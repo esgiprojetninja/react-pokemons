@@ -1,6 +1,6 @@
 import $ from "jquery";
 
-const baseUrl = "https://express-pokemons.herokuapp.com/types";
+const baseUrl = "http://localhost:3001/types";
 /* eslint-disable */
 export default class TypeApi {
     getAllTypes() {
