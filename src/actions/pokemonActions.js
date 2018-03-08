@@ -32,10 +32,11 @@ export const getAll = () =>
         dispatch(requestDispatched());
         pokemonApi.getAll()
             .then((response) => {
+                console.error("EEEEH WAAAAY", response);
                 if (response.error) {
                     dispatch(requestFailed());
                 } else {
-                    dispatch(receivedAllPokemons(response.data));
+                    dispatch(receivedAllPokemons(response.pokemons));
                 }
             })
             .catch(error => dispatch(requestFailed(error)));

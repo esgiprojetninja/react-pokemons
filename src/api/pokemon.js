@@ -1,6 +1,6 @@
 import $ from "jquery";
 
-const baseUrl = "/pokemons";
+const baseUrl = "https://express-pokemons.herokuapp.com/pokemons";
 /* eslint-disable */
 export default class PokemonApi {
     getAll() {
@@ -9,8 +9,10 @@ export default class PokemonApi {
                 method: "GET",
                 url: baseUrl
             }).done( response => {
+                console.warn("COUCOU JQUERY DONE", response);
                 resolve(response);
             }).fail( response => {
+                console.warn("COUCOU JQUERY FAIL", response);
                 reject({error: response})
             });
         });

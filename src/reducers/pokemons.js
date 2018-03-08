@@ -28,6 +28,7 @@ const pokemons = (state = initialSate, action) => {
             requestFailMsg: action.error,
         };
     case types.RECEIVED_ALL_POKEMONS:
+        console.log("coucou pokemons", action);
         return {
             ...state,
             isFetching: false,
