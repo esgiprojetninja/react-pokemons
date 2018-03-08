@@ -4,24 +4,11 @@ import { Grid, Row, Col } from "react-bootstrap";
 import IconButton from "material-ui/IconButton";
 import Close from "material-ui/svg-icons/action/highlight-off";
 import Checkbox from "material-ui/Checkbox";
-import { RadioButton, RadioButtonGroup } from "material-ui/RadioButton";
 import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
-import TextField from "material-ui/TextField";
 import StringSimilarity from "string-similarity";
 import RaisedButton from "material-ui/RaisedButton";
 import Swal from "sweetalert";
-
-const colors = [
-    "Red",
-    "Orange",
-    "Yellow",
-    "Green",
-    "Blue",
-    "Purple",
-    "Black",
-    "White",
-];
 
 const styles = {
     buttonClose: {
@@ -51,10 +38,6 @@ const styles = {
 };
 
 class PokeSearch extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
     getPokemonsByQuery = (arr, pokemonName) => (
         arr.filter(pokemon => StringSimilarity
             .compareTwoStrings(pokemon.name, pokemonName) > 0.5)

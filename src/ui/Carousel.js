@@ -50,20 +50,22 @@ const sliderSettings = {
     ],
 };
 
-const renderType = (ps, ks) => (
-    (<span key className="type" style={{ backgroundColor: ps.color }}>{ps.nom_type}</span>)
-);
+const usedKeys = [];
 
 class Carousel extends React.PureComponent {
-    /* eslint-disable */
-    constructor(props) {
-        super(props);
+    renderType(typeID) {
+        if (!this.props.types.all) return null;
+        const type = this.props.types.all.find(t => t.id === typeID);
+        if (!type) return null;
+        return (
+            <span key={type.id} className="type" style={{ backgroundColor: type.color }}>{type.title}</span>
+        );
     }
-    /* eslint-enable */
 
     renderCards(p, key) {
+        usedKeys.push(p);
         return (
-            <div key={p._id} className="align" style={styles.cardWrapper}>
+            <div key={p.id} className="align" style={styles.cardWrapper}>
                 <div className="card">
                     <span className="card-number">#{ZeroFill(3, this.props.pokemons.all[key].id_national)}</span>
                     <img
@@ -85,7 +87,7 @@ class Carousel extends React.PureComponent {
                     <span className="card-title">{this.props.pokemons.all[key].name}</span>
                     <span className="card-description">{this.props.pokemons.all[key].description}</span>
                     <div className="card-type align">
-                        {(this.props.pokemons.all[key].type.map((ps, ks) => renderType(ps, ks)))}
+                        {(this.props.pokemons.all[key].type.map(typeID => this.renderType(typeID)))}
                     </div>
                 </div>
             </div>
@@ -115,6 +117,9 @@ Carousel.propTypes = {
     openDetails: T.func.isRequired,
     pokemons: T.shape({
         isFetching: T.bool.isRequired,
+        all: T.array,
+    }).isRequired,
+    types: T.shape({
         all: T.array,
     }).isRequired,
     theme: T.shape({}).isRequired,

@@ -2,14 +2,11 @@ import React from "react";
 import { PropTypes as T } from "prop-types";
 import { Grid, Row, Col } from "react-bootstrap";
 import RaisedButton from "material-ui/RaisedButton";
-import FontIcon from "material-ui/FontIcon";
 import IconButton from "material-ui/IconButton";
 import LocationSVG from "material-ui/svg-icons/action/room";
-import AddCircleOutlineSVG from "material-ui/svg-icons/content/add-circle-outline";
 import DescriptionSVG from "material-ui/svg-icons/action/description";
 import scrollToElement from "scroll-to-element";
 import ZeroFill from "zero-fill";
-import Card from "../container/Card";
 
 const styles = {
     button: {
@@ -31,15 +28,11 @@ const styles = {
 };
 
 class Table extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
     renderCards(p, key) {
         return (
             <div key={key} className="card text-center table-card" style={{ display: "inline-block", margin: "15px" }}>
                 <span className="card-number">#{ZeroFill(3, this.props.pokemons.all[key].id_national)}</span>
-                <img src={this.props.pokemons.all[key].image} className="card-pokemon" />
+                <img src={this.props.pokemons.all[key].image} className="card-pokemon" alt="chibar" />
                 <IconButton
                     style={styles.cardIconLocationWrapper}
                     iconStyle={styles.cardIconLocation}
@@ -67,7 +60,7 @@ class Table extends React.PureComponent {
         return (
             <div key={pokeKey} className="card text-center table-card" style={{ display: "inline-block", margin: "15px" }}>
                 <span className="card-number">{poke.id_national}</span>
-                <img src={poke.image} className="card-pokemon" />
+                <img src={poke.image} className="card-pokemon" alt="chibar" />
                 <IconButton
                     style={styles.cardIconLocationWrapper}
                     iconStyle={styles.cardIconLocation}
@@ -91,15 +84,13 @@ class Table extends React.PureComponent {
         );
     }
 
-    /* eslint-disable */
     renderType(typeID) {
         const type = this.props.types.all.find(t => t.id === typeID);
         if (!type) return null;
         return (
             <span key={type.id} className="type" style={{ backgroundColor: type.color }}>{type.title}</span>
-        )
+        );
     }
-    /* eslint-enable */
 
     renderPokemonsList() {
         if (this.props.pokesearch.searchedPokemons

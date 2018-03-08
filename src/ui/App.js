@@ -5,12 +5,6 @@ import Navbar from "../container/Navbar";
 import Home from "../container/Home";
 
 class App extends React.PureComponent {
-    /* eslint-disable */
-    constructor(props) {
-        super(props);
-    }
-    /* eslint-enable */
-
     componentWillMount() {
         this.props.beforeReady(this.props.muiTheme);
     }

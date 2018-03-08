@@ -1,8 +1,6 @@
 import React from "react";
 import { PropTypes as T } from "prop-types";
-import { Grid, Row, Col } from "react-bootstrap";
 import RaisedButton from "material-ui/RaisedButton";
-import FontIcon from "material-ui/FontIcon";
 import LocationSVG from "material-ui/svg-icons/action/room";
 import AddCircleOutlineSVG from "material-ui/svg-icons/content/add-circle-outline";
 import scrollToElement from "scroll-to-element";
@@ -15,10 +13,6 @@ const styles = {
 };
 
 export default class SubHome extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
     /* eslint-disable */
     renderSubTitle() {
         return (
@@ -68,7 +62,7 @@ export default class SubHome extends React.PureComponent {
                     {this.renderSubtitleBtn()}
                 </div>
                 <div className="full-height align">
-                    <img className="random-btn-image" src="img/randomBtn.png" />
+                    <img className="random-btn-image" src="img/randomBtn.png" alt="chibar" />
                 </div>
             </div>
         );

@@ -17,7 +17,7 @@ module.exports = {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/jsx-indent": [2, 4],
         "react/jsx-indent-props": [2, 4],
-        "jsx-a11y/href-no-hash": [0]
+        "jsx-a11y/href-no-hash": [0, 0]
     },
     "globals": {
         "google": true

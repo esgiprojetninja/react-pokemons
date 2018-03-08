@@ -14,7 +14,7 @@ export const isTimestamp = v => !isNaN(v) || isString(v, 0) || isNumber(v);
 
 export const isObject = v => exists(v) && typeof v === "object";
 
-export const isArray = (v, minLen = -1) => exists(v) && (typeof v === "array" || (isObject(v) && isNumber(v.length) && v.length > minLen));
+export const isArray = (v, minLen = -1) => exists(v) && (typeof v === "array" || (isObject(v) && isNumber(v.length) && v.length > minLen)); // eslint-disable-line
 
 export const isBoolean = v => exists(v) && (typeof v === "boolean");
 

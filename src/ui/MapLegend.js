@@ -29,10 +29,6 @@ const styles = {
 };
 
 export default class MapLegend extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
     handleReturn = () => {
         this.props.toggleForm();
         this.props.cleanMarker(this.props.mapWrap.addedMarker);

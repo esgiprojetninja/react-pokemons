@@ -5,7 +5,6 @@ import CircularProgress from "material-ui/CircularProgress";
 import Snackbar from "material-ui/Snackbar";
 import RaisedButton from "material-ui/RaisedButton";
 import DoneSVG from "material-ui/svg-icons/action/done";
-import * as tools from "../utils/verifTools";
 import MapLegend from "../container/MapLegend";
 
 const getGoogle = () => (
@@ -45,10 +44,6 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
 ));
 
 class MapContainer extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         // this.ticketFunc = window.setInterval(() => {
         //     this.props.tickMarkers();
@@ -187,7 +182,7 @@ class MapContainer extends React.PureComponent {
 MapContainer.propTypes = {
     mapLoaded: T.func.isRequired,
     changeMarker: T.func.isRequired,
-    tickMarkers: T.func.isRequired,
+    // tickMarkers: T.func.isRequired,
     validateAddedMarker: T.func.isRequired,
     setNoticedAddingPokeLocationMsgTrue: T.func.isRequired,
     setNoticedAddingPokeLocationMsgFalse: T.func.isRequired,

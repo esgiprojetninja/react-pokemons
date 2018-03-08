@@ -2,7 +2,6 @@ import React from "react";
 import { PropTypes as T } from "prop-types";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
-import FlatButton from "material-ui/FlatButton";
 import ToggleSVG from "material-ui/svg-icons/image/dehaze";
 import LocationSVG from "material-ui/svg-icons/action/room";
 import SearchSVG from "material-ui/svg-icons/action/search";
@@ -57,9 +56,6 @@ const styles = {
 };
 
 export default class Navbar extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
     /* eslint-disable */
     renderRoundEffectElement() {
         return (
