@@ -1,0 +1,13 @@
+.index-wrapper {
+  background: url("/img/index-wrapper-bg.jpg") center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.index-logo {
+  height: 55px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 10px 15px;
+}

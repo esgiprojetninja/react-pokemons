@@ -1,7 +1,7 @@
 import * as types from "../actions/typeTypes";
 
 const initialSate = {
-    all: false,
+    all: null,
     isFetching: false,
     requestFailMsg: false,
 };

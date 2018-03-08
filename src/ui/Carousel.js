@@ -51,7 +51,7 @@ const sliderSettings = {
 };
 
 const renderType = (ps, ks) => (
-    (<span key={ks} className="type" style={{ backgroundColor: ps.color }}>{ps.nom_type}</span>)
+    (<span key className="type" style={{ backgroundColor: ps.color }}>{ps.nom_type}</span>)
 );
 
 class Carousel extends React.PureComponent {
@@ -63,7 +63,7 @@ class Carousel extends React.PureComponent {
 
     renderCards(p, key) {
         return (
-            <div key={key} className="align" style={styles.cardWrapper}>
+            <div key={p.id} className="align" style={styles.cardWrapper}>
                 <div className="card">
                     <span className="card-number">#{ZeroFill(3, this.props.pokemons.all[key].id_national)}</span>
                     <img

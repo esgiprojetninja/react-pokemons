@@ -34,7 +34,7 @@ const pokemons = (state = initialSate, action) => {
             all: action.pokemons
                 .map(pokemon => ({
                     id: pokemon._id, // eslint-disable-line
-                    type: [pokemon.type1, pokemon.type2],
+                    type: [pokemon.type1, pokemon.type2].filter(t => t),
                     ...pokemon,
                     evolutions: action.pokemons
                         .find(poke => poke.id_parent === pokemon.id_national) ?

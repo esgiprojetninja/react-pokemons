@@ -1,0 +1,26 @@
+@keyframes fadeInHeaderIcon {
+  0% {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  20% {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  100%{
+    opacity: 1;
+    height: 48px;
+    width: 48px;
+    background: inherit;
+  }
+}
+
+.fadeInHeaderIcon {
+  animation-name: fadeInHeaderIcon;
+}

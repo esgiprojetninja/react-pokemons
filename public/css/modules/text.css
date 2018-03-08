@@ -1,0 +1,74 @@
+.text-center{
+    text-align:center;
+}
+.text-left{
+    text-align: left;
+}
+.text-right{
+    text-align: right;
+}
+.underline-hover:hover{
+    text-decoration: underline;
+}
+.no-decoration-hover:hover{
+    text-decoration: none;
+}
+a.no-decoration-hover:hover{
+    text-decoration: none;
+}
+p.no-decoration-hover:hover{
+    text-decoration: none;
+}
+span.no-decoration-hover:hover{
+    text-decoration: none;
+}
+.uppercase {
+    text-transform: uppercase;
+}
+.lowercase {
+    text-transform: lowercase;
+}
+.capitalize {
+    text-transform: capitalize;
+}
+.font-bold{
+    font-weight: 700;
+}
+.font-weight-normal{
+    font-weight: 400;
+}
+.break-word{
+    word-wrap: break-word;
+}
+
+.header-title{
+    font-size:45px;
+}
+
+.title-1{
+    font-size: 24px;
+}
+.title-2{
+    font-size: 21px;
+}
+.title-3{
+    font-size: 18px;
+}
+.title-4{
+    font-size: 16px;
+}
+.title-5{
+    font-size: 14px;
+}
+.title-6{
+    font-size: 12px;
+}
+.title-7{
+    font-size: 11px;
+}
+.title-8{
+    font-size: 10px;
+}
+.color-fb{
+    color: $brand-fb;
+}

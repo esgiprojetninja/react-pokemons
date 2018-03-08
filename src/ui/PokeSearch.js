@@ -144,8 +144,11 @@ class PokeSearch extends React.PureComponent {
                             <div className="filters filters-type">
                                 <span className="filters-name">Types :</span>
                                 {
-                                    (this.props.types.all
-                                        .map((thisP, thisKey) => this.renderTypes(thisP, thisKey)))
+                                    (this.props.types.all ?
+                                        this.props.types.all
+                                            .map((thisP, thisKey) =>
+                                                this.renderTypes(thisP, thisKey))
+                                        : [])
                                 }
                             </div>
                             <div>
@@ -206,11 +209,11 @@ PokeSearch.propTypes = {
     pokesearch: T.shape({
         searchedParams: T.shape({
             pokemonType: T.array.isRequired,
-            query: T.any.isRequired,
+            query: T.any,
         }),
     }).isRequired,
     types: T.shape({
-        all: T.array.isRequired,
+        all: T.array,
     }).isRequired,
     pokemons: T.shape({
         all: T.array.isRequired,

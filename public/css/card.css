@@ -1,0 +1,154 @@
+.card-wrapper {
+  margin-top: 20vh;
+}
+
+.card {
+  /*margin-top: 165px;*/
+  margin-top: 25px;
+  max-width: 300px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  color: white;
+  padding: 15px 25px;
+  position: relative;
+}
+
+.card-number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(164, 198, 57);
+  padding: 5px 10px;
+  font-size: 11px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.card-pokemon {
+  /*position: absolute;
+  top: -170px;
+  margin: 0 auto;
+  right: 0;
+  left: 0;
+  height: 230px;*/
+  margin: 0 auto;
+}
+
+.card-title {
+  text-align: center;
+  display: block;
+  font-weight: 800;
+  font-size: 18px;
+  /*margin: 65px 15px 15px 15px;*/
+  margin: 15px;
+}
+
+.card-description {
+  display: block;
+  font-size: 12px;
+}
+
+.card-type {
+  display: block;
+  margin-top: 15px;
+}
+
+.table-type {
+  margin: 5px 0 0 0;
+}
+
+.table-title {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.table-card {
+  width: 200px;
+}
+
+.type {
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 5px;
+  padding: 5px 10px;
+  font-size: 11px;
+  min-width: 80px;
+  text-align: center;
+  color: white;
+}
+
+.card-details-content {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 5px;
+}
+
+.card-details-body ul li{
+    margin-top: 15px;
+}
+
+.card-details-body{
+    padding: 0 25px;
+}
+
+.card-details {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+.pokemon-details{
+    cursor: pointer;
+}
+
+.pokemon-starter{
+    opacity: 0.5;
+}
+
+.pokemon-evolution{
+    opacity: 0.5;
+}
+
+.pokemon-starter:hover{
+    opacity: 1;
+}
+
+.pokemon-evolution:hover{
+    opacity: 1;
+}
+
+.card-details-title-line{
+    height: 8px;
+    width: 60%;
+    margin: 10px 0;
+    border-radius: 10px;
+    background-color: rgb(164, 198, 57);
+}
+
+.search-checkbox-wrapper{
+    display: inline-block;
+    margin: 15px 20px 0 0;
+}
+
+.bottom-line{
+    padding-bottom: 15px;
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.card-details-section-title{
+    margin: 20px 0 0 0;
+    display: block;
+    opacity: .8;
+    font-size: 14px;
+}
+
+.card-details-section-description{
+    margin-top: 15px;
+}
+
+.left-line{
+    border-left: 1px solid #E6E6E6;
+}

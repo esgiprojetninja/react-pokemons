@@ -128,6 +128,7 @@ class Table extends React.PureComponent {
     }
 
     renderTypeFilter(value, key) {
+        if (!this.props.types.all) return null;
         const typeColor = this.props.types.all.find(type => type.name_type === value).color;
         return (
             <span key={key} className="type" style={{ backgroundColor: typeColor, padding: "10px 15px", fontSize: "14px" }}>{value}</span>
@@ -209,18 +210,18 @@ Table.propTypes = {
     setSelectedPokemonForDetails: T.func.isRequired,
     openDetails: T.func.isRequired,
     types: T.shape({
-        all: T.array.isRequired,
+        all: T.array,
     }).isRequired,
     pokemons: T.shape({
         isFetching: T.bool.isRequired,
         addingPokemonMarker: T.bool.isRequired,
-        marked: T.array.isRequired,
-        all: T.array.isRequired,
+        marked: T.array,
+        all: T.array,
     }).isRequired,
     pokesearch: T.shape({
         searchedPokemons: T.array.isRequired,
         searchedParams: T.shape({
-            query: T.any.isRequired,
+            query: T.any,
             pokemonType: T.array.isRequired,
         }).isRequired,
     }).isRequired,

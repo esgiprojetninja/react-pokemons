@@ -1,0 +1,12 @@
+.map-wrapper {
+
+}
+#pokedexApp > div > div.container.full-height.full-width.container > section.map-wrapper.full-height.full-width.display-flex-row.space-around.relative > div.margin-auto.width-14 > div.full-height.full-width > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div > div > div > div {
+    position: absolute;
+    bottom: 0;
+    left: -33px;
+    background: rgba(8,8,8,0.5);
+    padding: 4px;
+    border-radius: 5px;
+    color: #fff !important;
+}
