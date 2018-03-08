@@ -50,9 +50,9 @@ class MapContainer extends React.PureComponent {
     }
 
     componentDidMount() {
-        this.ticketFunc = window.setInterval(() => {
-            this.props.tickMarkers();
-        }, 1000);
+        // this.ticketFunc = window.setInterval(() => {
+        //     this.props.tickMarkers();
+        // }, 1000);
     }
 
     componentWillUnmount() {

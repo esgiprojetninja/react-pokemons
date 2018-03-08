@@ -71,8 +71,10 @@ export default class PokemonApi {
                 method: "GET",
                 url: baseUrl + "/marked"
             }).done( response => {
+                console.warn("/marked DONE", response);
                 resolve(response);
             }).fail( response => {
+                console.warn("/marked FAIL", response);
                 reject({error: response})
             });
         });

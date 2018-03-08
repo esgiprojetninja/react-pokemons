@@ -85,16 +85,18 @@ class Table extends React.PureComponent {
                     {poke.name}
                 </span>
                 <div className="card-type align">
-                    {(poke.type.map((ps, ks) => this.renderType(ps, ks)))}
+                    {(poke.type.map(typeID => this.renderType(typeID)))}
                 </div>
             </div>
         );
     }
 
     /* eslint-disable */
-    renderType(ps, ks) {
+    renderType(typeID) {
+        const type = this.props.types.all.find(t => t.id === typeID);
+        if (!type) return null;
         return (
-            <span key={ks} className="type" style={{backgroundColor: ps.color}}>{ps.nom_type}</span>
+            <span key={type.id} className="type" style={{ backgroundColor: type.color }}>{type.title}</span>
         )
     }
     /* eslint-enable */
@@ -129,7 +131,7 @@ class Table extends React.PureComponent {
 
     renderTypeFilter(value, key) {
         if (!this.props.types.all) return null;
-        const typeColor = this.props.types.all.find(type => type.name_type === value).color;
+        const typeColor = this.props.types.all.find(type => type.title === value).color;
         return (
             <span key={key} className="type" style={{ backgroundColor: typeColor, padding: "10px 15px", fontSize: "14px" }}>{value}</span>
         );

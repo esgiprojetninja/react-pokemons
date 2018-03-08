@@ -26,7 +26,7 @@ export const getAllTypes = () =>
                 if(response.error) {
                     dispatch(requestFailed());
                 } else {
-                    dispatch(receivedAllTypes(response.data));
+                    dispatch(receivedAllTypes(response));
                 }
             })
             .catch( error => dispatch(requestFailed(error)));

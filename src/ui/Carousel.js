@@ -63,7 +63,7 @@ class Carousel extends React.PureComponent {
 
     renderCards(p, key) {
         return (
-            <div key={p.id} className="align" style={styles.cardWrapper}>
+            <div key={p._id} className="align" style={styles.cardWrapper}>
                 <div className="card">
                     <span className="card-number">#{ZeroFill(3, this.props.pokemons.all[key].id_national)}</span>
                     <img

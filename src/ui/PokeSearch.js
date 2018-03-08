@@ -80,15 +80,15 @@ class PokeSearch extends React.PureComponent {
         return pokemonsByFilter;
     }
 
-    renderTypes(thisP, thisK) {
+    renderTypes(pokeType, thisK) {
         return (
             <div className="search-checkbox-wrapper" key={thisK}>
                 <Checkbox
                     checkedIcon={<ActionFavorite />}
                     uncheckedIcon={<ActionFavoriteBorder style={{ fill: "white" }} />}
-                    label={thisP.name_type}
+                    label={pokeType.title}
                     labelStyle={{
-                        backgroundColor: thisP.color,
+                        backgroundColor: pokeType.color,
                         width: "auto",
                         color: "white",
                         borderBottomLeftRadius: "10px",
@@ -101,11 +101,11 @@ class PokeSearch extends React.PureComponent {
                         (event, isInputChecked) => {
                             if (isInputChecked) {
                                 if (this.props.pokesearch.searchedParams.pokemonType
-                                    .indexOf(thisP.name_type) === -1) {
-                                    this.props.setSearchedType(thisP.name_type);
+                                    .indexOf(pokeType.title) === -1) {
+                                    this.props.setSearchedType(pokeType.title);
                                 }
                             } else {
-                                this.props.removeSearchedParamsType(thisP.name_type);
+                                this.props.removeSearchedParamsType(pokeType.title);
                             }
                         }
                     }
@@ -146,8 +146,8 @@ class PokeSearch extends React.PureComponent {
                                 {
                                     (this.props.types.all ?
                                         this.props.types.all
-                                            .map((thisP, thisKey) =>
-                                                this.renderTypes(thisP, thisKey))
+                                            .map((pokeType, thisKey) =>
+                                                this.renderTypes(pokeType, thisKey))
                                         : [])
                                 }
                             </div>
