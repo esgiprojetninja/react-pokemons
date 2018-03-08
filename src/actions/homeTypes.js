@@ -1,0 +1,2 @@
+export const TOGGLE_CAROUSEL = "TOGGLE_CAROUSEL";
+export const GET_TABLE_VIEW = "GET_TABLE_VIEW";

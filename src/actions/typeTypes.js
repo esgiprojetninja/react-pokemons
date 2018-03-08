@@ -1,0 +1,3 @@
+export const REQUESTING = "REQUESTING";
+export const REQUEST_FAIL = "REQUEST_FAIL";
+export const RECEIVED_ALL_TYPES = "RECEIVED_ALL_TYPES";

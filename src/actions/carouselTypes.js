@@ -1,0 +1,2 @@
+export const SET_CURRENT = "SET_CURRENT";
+export const TOGGLE_DETAILS = "TOGGLE_DETAILS";

@@ -1,0 +1,3 @@
+export const TOGGLE_DISPLAY = "TOGGLE_DISPLAY";
+export const TOGGLE_SEARCH = "TOGGLE_SEARCH";
+export const CLOSE_SEARCH = "CLOSE_SEARCH";
