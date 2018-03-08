@@ -29,6 +29,7 @@ const muiTheme = getMuiTheme({
 
 const app = {
     startApp() {
+        console.log("coucou FDPPPPPP");
         const store = createStore(
             MainReducer,
             applyMiddleware(thunk),
@@ -51,5 +52,7 @@ const app = {
         );
     },
 };
+
+app.startApp();
 
 export default app;
