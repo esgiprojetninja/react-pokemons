@@ -5,8 +5,8 @@ import IconButton from "material-ui/IconButton";
 import ToggleSVG from "material-ui/svg-icons/image/dehaze";
 import LocationSVG from "material-ui/svg-icons/action/room";
 import SearchSVG from "material-ui/svg-icons/action/search";
-import MailSVG from "material-ui/svg-icons/content/mail";
-import scrollToElement from "scroll-to-element";
+import UserSVG from "material-ui/svg-icons/action/verified-user";
+import AddCircleOutlineSVG from "material-ui/svg-icons/content/add-circle-outline";
 
 const styles = {
     navShow: {
@@ -92,20 +92,18 @@ export default class Navbar extends React.PureComponent {
                 className="animate slow fadeInHeaderIcon"
                 style={styles.iconHide}
                 iconStyle={styles.icon}
-                tooltip="MAP"
-                children={<LocationSVG/>}
+                tooltip="Connection"
+                children={<UserSVG/>}
                 onTouchTap={
-                    () => {
-                        scrollToElement(".map-wrapper");
-                    }
+                    () => {}
                 }
             />
         )
     }
 
-    renderContactElement() {
+    renderAddElement() {
         return (
-            <IconButton className="animate slow fadeInHeaderIcon" style={styles.iconHide} iconStyle={styles.icon} tooltip="CONTACT" children={<MailSVG/>}/>
+            <IconButton className="animate slow fadeInHeaderIcon" style={styles.iconHide} iconStyle={styles.icon} tooltip="add pokemon" children={<AddCircleOutlineSVG/>}/>
         )
     }
     /* eslint-enable */
@@ -117,7 +115,7 @@ export default class Navbar extends React.PureComponent {
                     {this.renderRoundEffectElement()}
                     {this.renderSearchElement()}
                     {this.renderMapElement()}
-                    {this.renderContactElement()}
+                    {this.renderAddElement()}
                 </div>
             );
         }

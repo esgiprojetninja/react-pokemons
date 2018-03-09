@@ -13,7 +13,6 @@ import TextField from "material-ui/TextField";
 import DoneSVG from "material-ui/svg-icons/action/done";
 import { cloneDeep } from "lodash";
 import CircularProgress from "material-ui/CircularProgress";
-import MapContainer from "../container/MapContainer";
 import Carousel from "../container/Carousel";
 import SubHome from "../container/SubHome";
 import Table from "../container/Table";
@@ -548,7 +547,6 @@ class Home extends React.PureComponent {
                     {this.renderOnToggleView()}
                     {this.renderSearchWrapper()}
                 </section>
-                <MapContainer />
             </Grid>
         );
     }
