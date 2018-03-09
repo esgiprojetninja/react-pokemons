@@ -103,7 +103,9 @@ class PokeSearch extends React.PureComponent {
                         minWidth: "80px",
                         textAlign: "center",
                     }}
-                    onCheck={(event, isInputChecked) => { this.checkTypeHandler(pokeType, event, isInputChecked); }}
+                    onCheck={(event, isInputChecked) => {
+                        this.checkTypeHandler(pokeType, event, isInputChecked);
+                    }}
                     iconStyle={styles.checkboxIcon}
                     style={styles.checkbox}
                 />
@@ -134,7 +136,8 @@ class PokeSearch extends React.PureComponent {
                                     } else {
                                         this.props.resetSearchedParams();
                                     }
-                                    const matchedPokemons = this.filterByTypes().concat(this.filterByName());
+                                    const matchedPokemons = this.filterByTypes()
+                                        .concat(this.filterByName());
                                     this.props.setSearchedPokemons(matchedPokemons);
                                 }}
                                 className="search-input"
@@ -158,7 +161,8 @@ class PokeSearch extends React.PureComponent {
                                     style={{ margin: "15px" }}
                                     labelColor="#ffffff"
                                     onTouchTap={() => {
-                                        const matchedPokemons = this.filterByTypes().concat(this.filterByName());
+                                        const matchedPokemons = this.filterByTypes()
+                                            .concat(this.filterByName());
                                         this.props.setSearchedPokemons(matchedPokemons);
                                         this.props.closeSearch();
                                     }}

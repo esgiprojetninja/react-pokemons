@@ -87,12 +87,13 @@ const pokemons = (state = initialSate, action) => {
     case types.SUCCESS_UPDATE_POKEMON:
         return {
             ...state,
+            isFetching: false,
             all: state.all
                 .map(pokemon => (
-                    pokemon.id_national == action.pokemon.id_national ?
+                    pokemon.id_national === action.pokemon.id_national ?
                         {
-                            id: pokemon._id, // eslint-disable-line
-                            type: [pokemon.type1, pokemon.type2].filter(t => t),
+                            id: action.pokemon._id, // eslint-disable-line
+                            type: [action.pokemon.type1, action.pokemon.type2].filter(t => t),
                             ...action.pokemon,
                             evolutions: state.all
                                 .find(poke => poke.id_parent === pokemon.id_national) ?

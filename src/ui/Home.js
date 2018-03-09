@@ -62,8 +62,12 @@ const styles = {
 
 class Home extends React.PureComponent {
     componentWillReceiveProps(props) {
+        const poke = props.pokemons.all ?
+            props.pokemons.all.find(p => p.id_national === props.carousel.selectedCurrent)
+            || props.carousel.selectedCurrent :
+            props.carousel.selectedCurrent;
         this.state = {
-            currentDetailedPokemon: cloneDeep(props.carousel.selectedCurrent),
+            currentDetailedPokemon: cloneDeep(poke),
         };
     }
 
