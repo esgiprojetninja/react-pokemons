@@ -97,15 +97,26 @@ export default class PokemonApi {
         });
     }
     marked(callback){
-      ajax({
-          method: "GET",
-          url: baseUrl + "/marked"
-      }).done( response => {
-          callback(response);
-      }).fail( response => {
-          callback({error: response})
-      });
+        ajax({
+            method: "GET",
+            url: baseUrl + "/marked"
+        }).done( response => {
+            callback(response);
+        }).fail( response => {
+            callback({error: response})
+        });
     }
-
+    getPossibleParents(pokemondId) {
+        return new Promise((resolve, reject) => {
+            ajax({
+                method: "GET",
+                url: `${baseUrl}/${pokemondId}/possibleParents"`
+            }).done(response => {
+                resolve(response);
+            }).fail(response => {
+                reject({ error: response })
+            });
+        });
+    }
 }
 /* eslint-enable */

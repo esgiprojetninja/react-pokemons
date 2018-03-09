@@ -18,6 +18,9 @@ import Carousel from "../container/Carousel";
 import SubHome from "../container/SubHome";
 import Table from "../container/Table";
 import PokeSearch from "../container/PokeSearch";
+import PokemonAPI from "../api/pokemon";
+
+const pokeApi = new PokemonAPI();
 
 const styles = {
     buttonClose: {
@@ -61,14 +64,26 @@ const styles = {
 };
 
 class Home extends React.PureComponent {
-    componentWillReceiveProps(props) {
+    async componentWillReceiveProps(props) {
         const poke = props.pokemons.all ?
             props.pokemons.all.find(p => p.id_national === props.carousel.selectedCurrent)
             || props.carousel.selectedCurrent :
             props.carousel.selectedCurrent;
         this.state = {
             currentDetailedPokemon: cloneDeep(poke),
+            possibleParents: [],
         };
+
+        // Trigger local request, not storing data in reducer
+        if (this.state.currentDetailedPokemon && this.state.currentDetailedPokemon.id_national) {
+            const res = await pokeApi
+                .getPossibleParents(this.state.currentDetailedPokemon.id_national);
+            if (!res.error) {
+                this.setState({
+                    possibleParents: res,
+                });
+            }
+        }
     }
 
     propChangeHandler(prop, val) {
@@ -272,9 +287,28 @@ class Home extends React.PureComponent {
         return null;
     }
 
+    renderPossibleParents() {
+        // @TODO if user connected
+        if (this.state.possibleParents && this.state.possibleParents.length) {
+            return (
+                <RaisedButton
+                    target="_blank"
+                    label="change parent"
+                    labelColor="#ffffff"
+                    secondary={true} // eslint-disable-line
+                    style={{ alignSelf: "start" }}
+                    buttonStyle={{ backgroundColor: "#a4c639" }}
+                    // onTouchTap={}
+                />
+            );
+        }
+        return null;
+    }
+
     renderPokemonDetailsEvolution() {
         return (
             <div className="align">
+                {this.renderPossibleParents()}
                 {this.renderPokemonDetailsFirstStarter()}
                 {this.renderPokemonDetailsCurrent()}
                 {this.renderPokemonDetailsFirstEvolution()}
