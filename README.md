@@ -7,3 +7,6 @@ Make sure you run the api before you run this project
 npm install
 npm start
 ```
+
+## API
+https://github.com/esgiprojetninja/express-pokemons
