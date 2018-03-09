@@ -8,7 +8,6 @@ import ActionFavorite from "material-ui/svg-icons/action/favorite";
 import ActionFavoriteBorder from "material-ui/svg-icons/action/favorite-border";
 import StringSimilarity from "string-similarity";
 import RaisedButton from "material-ui/RaisedButton";
-import Swal from "sweetalert";
 
 const styles = {
     buttonClose: {
@@ -38,30 +37,53 @@ const styles = {
 };
 
 class PokeSearch extends React.PureComponent {
-    getPokemonsByQuery = (arr, pokemonName) => (
-        arr.filter(pokemon => StringSimilarity
-            .compareTwoStrings(pokemon.name, pokemonName) > 0.5)
-    );
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchedName: "",
+            searchedTypes: [],
+        };
+    }
 
-    getPokemonsByFilter = (arr) => {
-        const pokemonsByFilter = [];
-        arr.forEach((pokemon) => {
-            if (pokemon.type) {
-                pokemon.type.forEach((typeID) => {
-                    const pokemonType = this.props.types.all.find(t => t.id === typeID);
-                    if (this.props.pokesearch.searchedParams.pokemonType.length) {
-                        this.props.pokesearch.searchedParams.pokemonType
-                            .forEach((searchedParamsTypeTitle) => {
-                                if (pokemonType.title === searchedParamsTypeTitle
-                                    && pokemonsByFilter.indexOf(pokemon) === -1) {
-                                    pokemonsByFilter.push(pokemon);
-                                }
-                            });
-                    }
-                });
+    filterByName() {
+        return this.props.pokemons.all
+            .filter(pokemon => StringSimilarity
+                .compareTwoStrings(pokemon.name, this.state.searchedName) > 0.5);
+    }
+
+    filterByTypes() {
+        const matchedPokemons = [];
+        this.props.pokemons.all.forEach((poke) => {
+            if (!poke.type) return;
+            if (this.state.searchedTypes.indexOf(poke.type[0]) > -1) {
+                matchedPokemons.push(poke);
+                return;
+            }
+            if (!poke.type.length < 2) return;
+            if (this.state.searchedTypes.indexOf(poke.type[1]) > -1) {
+                matchedPokemons.push(poke);
             }
         });
-        return pokemonsByFilter;
+        return matchedPokemons;
+    }
+
+    checkTypeHandler = (pokeType, event, isInputChecked) => {
+        if (isInputChecked) {
+            if (this.props.pokesearch.searchedParams.pokemonType
+                .indexOf(pokeType.title) === -1) {
+                this.props.setSearchedType(pokeType.title);
+            }
+            this.setState({
+                searchedTypes: this.state.searchedTypes.concat([pokeType.id]),
+            });
+        } else {
+            this.props.removeSearchedParamsType(pokeType.title);
+            this.setState({
+                searchedTypes: this.state.searchedTypes.filter(typeId => typeId !== pokeType.id),
+            });
+        }
+        const matchedPokemons = this.filterByTypes().concat(this.filterByName());
+        this.props.setSearchedPokemons(matchedPokemons);
     }
 
     renderTypes(pokeType, thisK) {
@@ -81,18 +103,7 @@ class PokeSearch extends React.PureComponent {
                         minWidth: "80px",
                         textAlign: "center",
                     }}
-                    onCheck={
-                        (event, isInputChecked) => {
-                            if (isInputChecked) {
-                                if (this.props.pokesearch.searchedParams.pokemonType
-                                    .indexOf(pokeType.title) === -1) {
-                                    this.props.setSearchedType(pokeType.title);
-                                }
-                            } else {
-                                this.props.removeSearchedParamsType(pokeType.title);
-                            }
-                        }
-                    }
+                    onCheck={(event, isInputChecked) => { this.checkTypeHandler(pokeType, event, isInputChecked); }}
                     iconStyle={styles.checkboxIcon}
                     style={styles.checkbox}
                 />
@@ -117,9 +128,14 @@ class PokeSearch extends React.PureComponent {
                                 onChange={(event) => {
                                     if (event.target.value) {
                                         this.props.setSearchedQuery(event.target.value);
+                                        this.setState({
+                                            searchedName: event.target.value,
+                                        });
                                     } else {
                                         this.props.resetSearchedParams();
                                     }
+                                    const matchedPokemons = this.filterByTypes().concat(this.filterByName());
+                                    this.props.setSearchedPokemons(matchedPokemons);
                                 }}
                                 className="search-input"
                                 type="text"
@@ -141,35 +157,11 @@ class PokeSearch extends React.PureComponent {
                                     label="Go!"
                                     style={{ margin: "15px" }}
                                     labelColor="#ffffff"
-                                    onTouchTap={
-                                        () => {
-                                            if (this.props.pokesearch.searchedParams.pokemonType
-                                                && this.props
-                                                    .pokesearch.searchedParams.query === null) {
-                                                this.props.setSearchedPokemons(this.getPokemonsByFilter(this.props.pokemons.all)); // eslint-disable-line
-                                            }
-
-                                            if (this.props.pokesearch.searchedParams.pokemonType
-                                                .length === 0
-                                                && this.props.pokesearch.searchedParams.query) {
-                                                this.props.setSearchedPokemons(this.getPokemonsByQuery(this.props.pokemons.all, this.props.pokesearch.searchedParams.query)); // eslint-disable-line
-                                            }
-
-                                            if (this.props.pokesearch.searchedParams.pokemonType
-                                                .length !== 0
-                                                && this.props.pokesearch.searchedParams.query) {
-                                                this.props.setSearchedPokemons(this.getPokemonsByFilter(this.getPokemonsByQuery(this.props.pokemons.all, this.props.pokesearch.searchedParams.query))); // eslint-disable-line
-                                            }
-                                            if (this.props.pokesearch.searchedParams.pokemonType
-                                                .length === 0
-                                                && this.props.pokesearch.searchedParams
-                                                    .query === null) {
-                                                Swal("Oops...", "Vous n'avez rien renseigné dans la recherche!", "error");
-                                            } else {
-                                                this.props.closeSearch();
-                                            }
-                                        }
-                                    }
+                                    onTouchTap={() => {
+                                        const matchedPokemons = this.filterByTypes().concat(this.filterByName());
+                                        this.props.setSearchedPokemons(matchedPokemons);
+                                        this.props.closeSearch();
+                                    }}
                                     backgroundColor="#a4c639"
                                 />
                             </div>

@@ -28,10 +28,7 @@ const pokesearch = (state = initialSate, action) => {
             ...state,
             searchedParams: {
                 ...state.searchedParams,
-                pokemonType: [
-                    ...state.searchedParams.pokemonType,
-                    action.newType,
-                ],
+                pokemonType: state.searchedParams.pokemonType.concat([action.newType]),
             },
         };
     case types.REMOVE_SEARCHED_PARAMS_TYPE:
@@ -39,10 +36,8 @@ const pokesearch = (state = initialSate, action) => {
             ...state,
             searchedParams: {
                 ...state.searchedParams,
-                pokemonType: [
-                    ...state.searchedParams.pokemonType
-                        .filter(element => element !== action.removedType),
-                ],
+                pokemonType: state.searchedParams.pokemonType
+                    .filter(element => element !== action.removedType),
             },
         };
     case types.RESET_SEARCHED_PARAMS:
