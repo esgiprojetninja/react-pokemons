@@ -3,6 +3,7 @@ import { PropTypes as T } from "prop-types";
 import Slider from "react-slick";
 import IconButton from "material-ui/IconButton";
 import DescriptionSVG from "material-ui/svg-icons/action/description";
+import CircularProgress from "material-ui/CircularProgress";
 import ZeroFill from "zero-fill";
 
 const styles = {
@@ -107,7 +108,7 @@ class Carousel extends React.PureComponent {
         }
         return (
             <div className="align full-height" style={{ height: "49vh" }}>
-                Loading...
+                <CircularProgress size={150} thickness={10} />
             </div>
         );
     }

@@ -16,10 +16,10 @@ export default class SubHome extends React.PureComponent {
     /* eslint-disable */
     renderSubTitle() {
         return (
-            <div>
-                <span className="title-lg">Le pokedex</span>
-                <span className="title-lg">le plus complet</span>
-                <span className="title-lg">et le plus rapide</span>
+            <div className="full-width">
+                <p className="title-lg">Le pokedex</p>
+                <p className="title-lg">le plus complet</p>
+                <p className="title-lg">et le plus rapide</p>
             </div>
         )
     }
@@ -56,8 +56,8 @@ export default class SubHome extends React.PureComponent {
 
     render() {
         return (
-            <div className="align full-height">
-                <div className="subtitle-wrapper">
+            <div className="display-flex-row justify-center full-height">
+                <div className="subtitle-wrapper align-start full-height" style={{ marginTop: "31px" }}>
                     {this.renderSubTitle()}
                     {this.renderSubtitleBtn()}
                 </div>

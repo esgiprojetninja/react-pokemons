@@ -82,14 +82,18 @@ class Home extends React.PureComponent {
     renderOnToggleView() {
         if (this.props.home.showCarousel) {
             return (
-                <Row className="show-grid animate fadeInRight" style={{ height: "50vh" }}>
-                    <Col md={8} mdOffset={2}>
-                        <Carousel />
-                    </Col>
-                    <Col md={12} style={{ height: "50vh" }}>
-                        <SubHome />
-                    </Col>
-                </Row>
+                <Grid className="animate fadeInRight" style={{ height: "100vh" }}>
+                    <Row className="show-grid" >
+                        <Col md={8} mdOffset={2}>
+                            <Carousel />
+                        </Col>
+                    </Row>
+                    <Row className="show-grid">
+                        <Col md={12}>
+                            <SubHome />
+                        </Col>
+                    </Row>
+                </Grid>
             );
         }
         return (
@@ -123,7 +127,7 @@ class Home extends React.PureComponent {
                     children={<ArrowForwardSVG/>} // eslint-disable-line
                 />
                 <img
-                    key={thisKeyy}
+                    key={`${thisKeyy}-${thisPp.id}-last`}
                     alt="chibar"
                     className="pokemon-details pokemon-evolution"
                     src={
@@ -152,7 +156,7 @@ class Home extends React.PureComponent {
                     children={<ArrowForwardSVG/>} // eslint-disable-line
                 />
                 <img
-                    key={thisKey}
+                    key={`${thisKey}-${thisP.id}`}
                     className="pokemon-details pokemon-evolution"
                     src={thisP.image}
                     alt="chibar"
@@ -266,7 +270,6 @@ class Home extends React.PureComponent {
         );
     }
 
-
     renderPokemonTypes(typeID) {
         if (!this.props.types.all) return null;
         const type = this.props.types.all.find(t => t.id === typeID);
@@ -277,14 +280,15 @@ class Home extends React.PureComponent {
                 className="card-type card-type-size"
                 style={{ display: "initial" }}
             >
-                <span className="type" style={{ background: type.color }}>{type.nom_type}</span>
+                <span className="type" style={{ background: type.color }}>{type.title}</span>
             </div>
         );
     }
 
     renderPokemonDetailsMap() {
-        if (this.props.pokemons.marked
-            .find(poke => poke.id_pokemon === this.props.carousel.selectedCurrent.id_pokemon)) {
+        if (this.props.pokemons.marked &&
+            this.props.pokemons.marked
+                .find(poke => poke.id_pokemon === this.props.carousel.selectedCurrent.id_pokemon)) {
             return (
                 <Col md={12} style={{ height: "300px", marginTop: "20px", paddingBottom: "30px" }}>
                     <GettingStartedGoogleMap
@@ -334,6 +338,8 @@ class Home extends React.PureComponent {
 
     renderPokemonDetails() {
         if (this.props.carousel.showDetails) {
+            const currentPokemon = this.props.pokemons.all
+                .find(poke => poke.id_national === this.props.carousel.selectedCurrent.id_national);
             return (
                 <div className="card-details align full-height full-width">
                     <IconButton
@@ -348,12 +354,12 @@ class Home extends React.PureComponent {
                                 <img
                                     className="pokemon-details"
                                     alt="pokemon-details"
-                                    src={this.props.carousel.selectedCurrent.image}
+                                    src={currentPokemon.image}
                                 />
                             </div>
                             <div className="card-details-title-wrapper text-center">
                                 <span style={styles.pokemonName}>
-                                    {this.props.carousel.selectedCurrent.name}
+                                    {currentPokemon.name}
                                 </span>
                                 <div className="align" style={{ marginBottom: "15px" }}>
                                     <div className="card-details-title-line" />
@@ -361,17 +367,17 @@ class Home extends React.PureComponent {
                             </div>
                             <div className="card-details-section bottom-line align">
                                 <Col md={6} className="card-details-section-type text-center">
-                                    {(this.props.carousel.selectedCurrent.type
+                                    {(currentPokemon.type
                                         .map(typeID => this.renderPokemonTypes(typeID)))}
                                     <span className="card-details-section-title">Type</span>
                                 </Col>
                                 <Col md={6} className="card-details-section-number left-line text-center">
-                                    #{ZeroFill(3, this.props.carousel.selectedCurrent.id_national)}
+                                    #{ZeroFill(3, currentPokemon.id_national)}
                                     <span className="card-details-section-title">No.</span>
                                 </Col>
                             </div>
                             <Col md={12} className="card-details-section-description text-center bottom-line">
-                                {this.props.carousel.selectedCurrent.description}
+                                {currentPokemon.description}
                                 <span className="card-details-section-title">Description</span>
                             </Col>
                             <Col md={12} className="bottom-line">
@@ -470,7 +476,7 @@ Home.propTypes = {
             id_pokemon: T.number,
             id_national: T.number,
             type: T.array,
-            name: T.number,
+            name: T.string,
         }).isRequired,
         showDetails: T.bool.isRequired,
     }).isRequired,

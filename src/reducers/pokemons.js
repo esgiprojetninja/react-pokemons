@@ -48,7 +48,7 @@ const pokemons = (state = initialSate, action) => {
                                         .filter(poke => poke.id_parent === pokemon2.id_national) :
                                     false,
                             }))
-                        : false,
+                        : null,
                 })),
         };
     case types.RECEIVED_MARKED_POKEMONS:

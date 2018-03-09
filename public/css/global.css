@@ -1,74 +1,72 @@
 .subtitle-wrapper{
-  margin-left: 100px;
 }
 
 .title-lg {
-  font-size: 45px;
-  font-bold: 800;
-  color: white;
-  text-transform: uppercase;
-  display: block;
+    font-size: 25px;
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
 }
 
 .title-btn-wrapper{
-  margin: 15px;
+    margin: 15px;
 }
 
 .random-btn-image{
-  margin-left: 150px;
-  align-self: flex-end;
+    margin-left: 150px;
+    align-self: flex-end;
 }
 
 .text-center{
-  text-align: center;
+    text-align: center;
 }
 
 .search-fixed{
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  background: rgba(0, 0, 0, 0.8);
-  margin: 0;
-  padding: 15px;
-  top: 0;
-  z-index: 10000;
-  color: white;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.8);
+    margin: 0;
+    padding: 15px;
+    top: 0;
+    z-index: 10000;
+    color: white;
 }
 
 .search-content{
-  padding: 50px;
+    padding: 50px;
 }
 
 .filters {
-  margin: 15px;
+    margin: 15px;
 }
 
 .filters .filters-name{
-  font-weight: 800;
-  display: block;
+    font-weight: 800;
+    display: block;
 }
 
 .search-found {
-  margin: 15px;
+    margin: 15px;
 }
 
 .search-found-count{
-  color: #CD2431;
-  font-weight: 800;
+    color: #CD2431;
+    font-weight: 800;
 }
 
 .search-intro{
-  display: block;
-  margin: 15px;
+    display: block;
+    margin: 15px;
 }
 
 .search-input{
-  border: none;
-  background: none;
-  color: white;
-  margin: 15px;
-  display: block;
-  font-size: 100px;
-  text-transform: uppercase;
-  font-weight: 800;
+    border: none;
+    background: none;
+    color: white;
+    margin: 15px;
+    display: block;
+    font-size: 100px;
+    text-transform: uppercase;
+    font-weight: 800;
 }
