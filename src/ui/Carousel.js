@@ -67,7 +67,7 @@ class Carousel extends React.PureComponent {
         usedKeys.push(p);
         return (
             <div key={p.id} className="align" style={styles.cardWrapper}>
-                <div className="card">
+                <div className="card" style={{ height: "275px" }}>
                     <span className="card-number">#{ZeroFill(3, this.props.pokemons.all[key].id_national)}</span>
                     <img
                         src={this.props.pokemons.all[key].image}
@@ -86,7 +86,7 @@ class Carousel extends React.PureComponent {
                         }}
                     />
                     <span className="card-title">{this.props.pokemons.all[key].name}</span>
-                    <span className="card-description">{this.props.pokemons.all[key].description}</span>
+                    <span className="card-description" style={{ wordWrap: "break-word", overflow: "hidden" }}>{this.props.pokemons.all[key].description}</span>
                     <div className="card-type align">
                         {(this.props.pokemons.all[key].type.map(typeID => this.renderType(typeID)))}
                     </div>

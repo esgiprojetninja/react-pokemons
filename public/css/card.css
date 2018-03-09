@@ -2,6 +2,21 @@
     margin-top: 17vh;
 }
 
+.card-wrapper .slick-arrow:before {
+    font-size: 50px;
+}
+.card-wrapper .slick-arrow {
+    z-index: 90;
+    width: auto;
+    height: auto;
+}
+.card-wrapper .slick-prev {
+    left: 0;
+}
+.card-wrapper .slick-next {
+    right: 0;
+}
+
 .card {
     margin-top: 25px;
     max-width: 300px;
@@ -45,6 +60,7 @@
 .card-description {
     display: block;
     font-size: 12px;
+    max-height: 55px;
 }
 
 .card-type {
