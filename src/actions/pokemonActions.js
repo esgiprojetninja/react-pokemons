@@ -89,3 +89,24 @@ export const signalPosition = addedMarker =>
 export const tickMarkers = () => ({
     type: types.TICK_MARKERS,
 });
+
+const successUpdatePokemon = pokemon => ({
+    type: types.SUCCESS_UPDATE_POKEMON,
+    pokemon,
+});
+
+const failUpdatePokemon = err => ({
+    type: types.FAIL_UPDATE_POKEMON,
+    err,
+});
+
+export const updatePokemon = pokemon =>
+    async (dispatch) => {
+        dispatch(requestDispatched());
+        const res = await pokemonApi.update(pokemon.id_national, pokemon);
+        if (res.error) {
+            dispatch(failUpdatePokemon(res.error));
+        } else {
+            dispatch(successUpdatePokemon(res));
+        }
+    };

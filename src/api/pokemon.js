@@ -44,7 +44,7 @@ export default class PokemonApi {
         return new Promise((resolve, reject) => {
             ajax({
                 method: "PUT",
-                url: baseUrl + "/update/" + id,
+                url: baseUrl + "/" + id,
                 data
             }).done( response => {
                 resolve(response);

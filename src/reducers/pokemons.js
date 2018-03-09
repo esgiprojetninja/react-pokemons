@@ -84,6 +84,39 @@ const pokemons = (state = initialSate, action) => {
                 state.marked.map(poke => ({ ...poke, label: getTimeDropped(poke.date_created) })) :
                 state.marked,
         };
+    case types.SUCCESS_UPDATE_POKEMON:
+        return {
+            ...state,
+            all: state.all
+                .map(pokemon => (
+                    pokemon.id_national == action.pokemon.id_national ?
+                        {
+                            id: pokemon._id, // eslint-disable-line
+                            type: [pokemon.type1, pokemon.type2].filter(t => t),
+                            ...action.pokemon,
+                            evolutions: state.all
+                                .find(poke => poke.id_parent === pokemon.id_national) ?
+                                state.all
+                                    .filter(poke => poke.id_parent === pokemon.id_national)
+                                    .map(pokemon2 => ({
+                                        ...pokemon2,
+                                        evolutions: state.all
+                                            .find(poke => poke.id_parent === pokemon2.id_national) ?
+                                            state.all
+                                                .filter(poke =>
+                                                    poke.id_parent === pokemon2.id_national) :
+                                            false,
+                                    }))
+                                : null,
+                        }
+                        : pokemon
+                )),
+        };
+    case types.FAIL_UPDATE_POKEMON:
+        return {
+            ...state,
+            isFetching: false,
+        };
     default:
         return state;
     }

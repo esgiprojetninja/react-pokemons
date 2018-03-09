@@ -47,11 +47,12 @@ class PokeSearch extends React.PureComponent {
         const pokemonsByFilter = [];
         arr.forEach((pokemon) => {
             if (pokemon.type) {
-                pokemon.type.forEach((pokemonType) => {
-                    if (this.props.pokesearch.searchedParams.pokemonType.length !== 0) {
+                pokemon.type.forEach((typeID) => {
+                    const pokemonType = this.props.types.all.find(t => t.id === typeID);
+                    if (this.props.pokesearch.searchedParams.pokemonType.length) {
                         this.props.pokesearch.searchedParams.pokemonType
-                            .forEach((searchedParamsType) => {
-                                if (pokemonType.nom_type === searchedParamsType
+                            .forEach((searchedParamsTypeTitle) => {
+                                if (pokemonType.title === searchedParamsTypeTitle
                                     && pokemonsByFilter.indexOf(pokemon) === -1) {
                                     pokemonsByFilter.push(pokemon);
                                 }

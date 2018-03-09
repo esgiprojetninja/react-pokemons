@@ -2,6 +2,10 @@ import { connect } from "react-redux";
 import HomeComponent from "../ui/Home";
 
 import {
+    updatePokemon,
+} from "../actions/pokemonActions";
+
+import {
     toggleView,
     getTableView,
 } from "../actions/homeActions";
@@ -47,6 +51,11 @@ const mapDispatchToProps = dispatch => ({
     },
     togglePlacingPokemon() {
         dispatch(togglePlacingPokemon());
+    },
+    updatePokemon(pokemon) {
+        pokemon.type1 = pokemon.type && pokemon.type.length > 0 ? pokemon.type[0] : null; // eslint-disable-line
+        pokemon.type2 = pokemon.type && pokemon.type.length > 1 ? pokemon.type[1] : null; // eslint-disable-line
+        dispatch(updatePokemon(pokemon));
     },
 });
 

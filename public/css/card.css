@@ -66,12 +66,16 @@
 .card-type {
     display: block;
     margin-top: 15px;
+    transition: opacity .2s ease-in-out;
+}
+.card-type:hover {
+    margin: 5px 0 0 0;
+    opacity: 1 !important;
 }
 
 .table-type {
     margin: 5px 0 0 0;
 }
-
 .table-title {
     margin: 0;
     overflow-x: auto;

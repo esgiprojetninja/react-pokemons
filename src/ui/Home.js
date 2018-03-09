@@ -5,13 +5,14 @@ import RaisedButton from "material-ui/RaisedButton";
 import DashboardSVG from "material-ui/svg-icons/action/dashboard";
 import IconButton from "material-ui/IconButton";
 import FullscreenSVG from "material-ui/svg-icons/navigation/fullscreen";
-import AddCircleOutlineSVG from "material-ui/svg-icons/content/add-circle-outline";
 import ArrowForwardSVG from "material-ui/svg-icons/navigation/arrow-forward";
 import Screenfull from "screenfull";
 import Close from "material-ui/svg-icons/action/highlight-off";
-import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-import scrollToElement from "scroll-to-element";
 import ZeroFill from "zero-fill";
+import TextField from "material-ui/TextField";
+import DoneSVG from "material-ui/svg-icons/action/done";
+import { cloneDeep } from "lodash";
+import CircularProgress from "material-ui/CircularProgress";
 import MapContainer from "../container/MapContainer";
 import Carousel from "../container/Carousel";
 import SubHome from "../container/SubHome";
@@ -39,6 +40,12 @@ const styles = {
     pokemonName: {
         fontSize: "35px",
         fontWeight: 800,
+        borderBottom: "none",
+    },
+    pokemonDescription: {
+        fontSize: "12px",
+        fontWeight: 400,
+        borderBottom: "none",
     },
     pokemonId: {
         fontSize: "25px",
@@ -48,26 +55,27 @@ const styles = {
         height: "80%",
         minWidth: "320px",
     },
+    notTypedStyle: {
+        opacity: 0.2,
+    },
 };
 
-const GettingStartedGoogleMap = withGoogleMap(props => (
-    <GoogleMap
-        ref={props.onMapLoad}
-        defaultZoom={3}
-        defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
-        onClick={props.onMapClick}
-    >
-        {props.markers.map((marker, key) => (
-            <Marker
-                {...marker}
-                key
-                onRightClick={() => props.onMarkerRightClick(key)}
-            />
-        ))}
-    </GoogleMap>
-));
-
 class Home extends React.PureComponent {
+    componentWillReceiveProps(props) {
+        this.state = {
+            currentDetailedPokemon: cloneDeep(props.carousel.selectedCurrent),
+        };
+    }
+
+    propChangeHandler(prop, val) {
+        this.setState({
+            currentDetailedPokemon: {
+                ...this.state.currentDetailedPokemon,
+                [prop]: val,
+            },
+        });
+    }
+
     renderSearchWrapper() {
         if (this.props.navbar.showSearch) {
             return (
@@ -270,70 +278,138 @@ class Home extends React.PureComponent {
         );
     }
 
-    renderPokemonTypes(typeID) {
-        if (!this.props.types.all) return null;
-        const type = this.props.types.all.find(t => t.id === typeID);
-        if (!type) return null;
+    renderPokemonTypes(typeObj) {
+        // @TODO if user connected
+        const isTypeInCurrentPokemon = !!this.state.currentDetailedPokemon.type
+            .find(typeID => typeID === typeObj.id);
+        const dynamicStyle = isTypeInCurrentPokemon ? {
+            display: "initial",
+            cursor: "pointer",
+        } : {
+            display: "initial",
+            cursor: "pointer",
+            ...styles.notTypedStyle,
+        };
+
         return (
             <div
-                key={type.id}
+                key={typeObj.id}
                 className="card-type card-type-size"
-                style={{ display: "initial" }}
+                onTouchTap={() => {
+                    this.setState({
+                        currentDetailedPokemon: {
+                            ...this.state.currentDetailedPokemon,
+                            type: isTypeInCurrentPokemon ?
+                                this.state.currentDetailedPokemon.type
+                                    .filter(typeID => typeID !== typeObj.id)
+                                :
+                                this.state.currentDetailedPokemon.type
+                                    .concat([typeObj.id]).reverse().slice(0, 2),
+                        },
+                    });
+                }}
+                style={dynamicStyle}
             >
-                <span className="type" style={{ background: type.color }}>{type.title}</span>
+                <span className="type" style={{ background: typeObj.color }}>{typeObj.title}</span>
             </div>
         );
     }
 
-    renderPokemonDetailsMap() {
-        if (this.props.pokemons.marked &&
-            this.props.pokemons.marked
-                .find(poke => poke.id_pokemon === this.props.carousel.selectedCurrent.id_pokemon)) {
+    renderSaveBtns() {
+        // @TODO protect on user connected
+        if (this.props.pokemons.isFetching) {
             return (
-                <Col md={12} style={{ height: "300px", marginTop: "20px", paddingBottom: "30px" }}>
-                    <GettingStartedGoogleMap
-                        containerElement={
-                            <div className="full-height" />
-                        }
-                        mapElement={
-                            <div className="full-height full-width" />
-                        }
-                        markers={
-                            this.props.pokemons.marked ?
-                                this.props.pokemons.marked
-                                    .filter(poke =>
-                                        poke.id_pokemon === this.props
-                                            .carousel.selectedCurrent.id_pokemon)
-                                : []
-                        }
-                    />
-                    <span className="card-details-section-title text-center" style={{ marginTop: "15px" }}>Map</span>
+                <Col
+                    md={12}
+                    className="text-center absolute full-width full-height display-flex-row justify-end"
+                    style={{
+                        top: 0,
+                        height: "20%",
+                        maxHeight: "75px",
+                    }}
+                >
+                    <CircularProgress size={10} thickness={5} />
                 </Col>
             );
         }
         return (
-            <Col md={12} className="text-center" style={{ marginTop: "15px" }}>
-                <span style={{ marginRight: "15px" }}>{this.props.carousel.selectedCurrent.name} n&#39;est pas renseigné sur la map.</span>
+            <Col
+                md={12}
+                className="text-center absolute full-width full-height display-flex-row justify-end"
+                style={{
+                    top: 0,
+                    height: "20%",
+                    maxHeight: "75px",
+                }}
+            >
                 <RaisedButton
                     target="_blank"
-                    label="Ajouter"
+                    label=""
                     labelColor="#ffffff"
                     secondary={true} // eslint-disable-line
+                    style={{ alignSelf: "start" }}
                     buttonStyle={{ backgroundColor: "#a4c639" }}
-                    icon={<AddCircleOutlineSVG />}
+                    icon={<DoneSVG />}
                     onTouchTap={
                         () => {
-                            scrollToElement(".map-wrapper");
                             this.props.openDetails();
-                            this.props.openForm();
-                            this.props.setSelectedPokemon(this.props.carousel.selectedCurrent);
-                            this.props.togglePlacingPokemon();
+                            this.props.updatePokemon(this.state.currentDetailedPokemon);
                         }
                     }
                 />
-                <span className="card-details-section-title text-center" style={{ marginTop: "10px", marginBottom: "10px" }}>Map</span>
             </Col>
         );
+    }
+
+    renderPokemonDetailsName() {
+        // @TODO : if (this.user.isConnected)
+        return (
+            <TextField
+                value={this.state.currentDetailedPokemon.name}
+                style={styles.pokemonName}
+                inputProps={styles.pokemonName}
+                underlineShow={false}
+                onChange={(event) => { this.propChangeHandler("name", event.target.value); }}
+            />
+        );
+        // <span style={styles.pokemonName}>
+        //     {currentPokemon.name}
+        // </span>
+    }
+
+    renderPokemonDetailsDescription() {
+        // @TODO : if (this.user.isConnected)
+        return (
+            <div
+                className="full-width"
+                style={{
+                    maxWidth: "380px",
+                    margin: "auto",
+                }}
+            >
+                <TextField
+                    value={this.state.currentDetailedPokemon.description}
+                    style={styles.pokemonDescription}
+                    floatingLabelText="Description"
+                    multiLine={true} // eslint-disable-line
+                    fullWidth={true} // eslint-disable-line
+                    floatingLabelFixed={true} // eslint-disable-line
+                    underlineShow={false}
+                    floatingLabelStyle={{
+                        fontSize: "18px",
+                        fontWeight: 800,
+                        left: 0,
+                        textAlign: "left",
+                        color: "#a4c639",
+                    }}
+                    rows={4}
+                    rowsMax={6}
+                    onChange={(event) => { this.propChangeHandler("description", event.target.value); }}
+                />
+            </div>
+        );
+        // {currentPokemon.description}
+        // <span className="card-details-section-title">Description</span>
     }
 
     renderPokemonDetails() {
@@ -349,7 +425,7 @@ class Home extends React.PureComponent {
                         children={<Close />} // eslint-disable-line
                     />
                     <Col md={4} className="card-details-content">
-                        <div className="card-details-body full-width">
+                        <div className="card-details-body full-width full-height relative">
                             <div className="align">
                                 <img
                                     className="pokemon-details"
@@ -358,18 +434,15 @@ class Home extends React.PureComponent {
                                 />
                             </div>
                             <div className="card-details-title-wrapper text-center">
-                                <span style={styles.pokemonName}>
-                                    {currentPokemon.name}
-                                </span>
+                                {this.renderPokemonDetailsName(currentPokemon)}
                                 <div className="align" style={{ marginBottom: "15px" }}>
                                     <div className="card-details-title-line" />
                                 </div>
                             </div>
                             <div className="card-details-section bottom-line align">
-                                <Col md={6} className="card-details-section-type text-center">
-                                    {(currentPokemon.type
-                                        .map(typeID => this.renderPokemonTypes(typeID)))}
-                                    <span className="card-details-section-title">Type</span>
+                                <Col md={6} className="card-details-section-type text-center display-flex-row">
+                                    {(this.props.types.all
+                                        .map(typeObj => this.renderPokemonTypes(typeObj)))}
                                 </Col>
                                 <Col md={6} className="card-details-section-number left-line text-center">
                                     #{ZeroFill(3, currentPokemon.id_national)}
@@ -377,14 +450,13 @@ class Home extends React.PureComponent {
                                 </Col>
                             </div>
                             <Col md={12} className="card-details-section-description text-center bottom-line">
-                                {currentPokemon.description}
-                                <span className="card-details-section-title">Description</span>
+                                {this.renderPokemonDetailsDescription()}
                             </Col>
                             <Col md={12} className="bottom-line">
                                 {this.renderPokemonDetailsEvolution()}
                                 <span style={{ marginTop: 0 }} className="card-details-section-title text-center">Evolutions</span>
                             </Col>
-                            {this.renderPokemonDetailsMap()}
+                            {this.renderSaveBtns()}
                         </div>
                     </Col>
                 </div>
@@ -446,11 +518,9 @@ class Home extends React.PureComponent {
 
 Home.propTypes = {
     toggleView: T.func.isRequired,
+    updatePokemon: T.func.isRequired,
     openDetails: T.func.isRequired,
     resetSearchedPokemons: T.func.isRequired,
-    openForm: T.func.isRequired,
-    togglePlacingPokemon: T.func.isRequired,
-    setSelectedPokemon: T.func.isRequired,
     setSelectedPokemonForDetails: T.func.isRequired,
     navbar: T.shape({
         showSearch: T.bool.isRequired,
